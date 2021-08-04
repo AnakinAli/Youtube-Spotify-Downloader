@@ -55,8 +55,8 @@ if __name__ == "__main__":
                 f'youtube-dl --extract-audio -o "{songs_path}/youtube/%(title)s.%(ext)s" --audio-format mp3 {url}')
     else:
 
-        os.system(f'export SPOTIPY_CLIENT_ID=5b0c015af53d43ed8d5f4317c1f76e83 &&'
-                  f' export SPOTIPY_CLIENT_SECRET=04d8fe2163ba46ef826cb05607ee265f &&'
+        os.system(f'export SPOTIPY_CLIENT_ID={config.get("SPOTIPY_CLIENT_ID")} &&'
+                  f' export SPOTIPY_CLIENT_SECRET={config.get("SPOTIPY_CLIENT_SECRET")} &&'
                   f' spotify_dl -l {url} -o {songs_path}/spotify')
 
 # sudo vi /etc/profile.d/song_downloader_from_python.sh
