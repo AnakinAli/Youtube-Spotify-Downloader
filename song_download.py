@@ -60,5 +60,6 @@ if __name__ == "__main__":
                   f' export SPOTIPY_CLIENT_SECRET={os.getenv("SPOTIPY_CLIENT_SECRET")} &&'
                   f' spotify_dl -l {url} -o {songs_path}/spotify')
 
+
 # sudo vi /etc/profile.d/song_downloader_from_python.sh
 # source  /etc/profile.d/song_downloader_from_python.sh
