@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import os
 from termcolor import colored
+from dotenv import dotenv_values
 
 
 def check_is_youtube_platform(url):
-    # https://www.youtube.com/watch?v=SUn5VFmBFH8
     domain = url.split('/')[2]
     if 'youtube' in domain:
         print(f'Domain: {colored("Youtube", "red")}')
@@ -27,6 +27,10 @@ def check_if_playlist(url):
 
 
 if __name__ == "__main__":
+
+    # Load .env
+    config = dotenv_values('.env')
+
     url = input(colored('Link: ', "blue"))
 
     change_directory = input(colored('Do you want to change the directory from "~/Music" [Y/n]: ', 'yellow')).lower()
@@ -34,8 +38,9 @@ if __name__ == "__main__":
         songs_path = str(input(colored('New path: ', 'green')))
     else:
         songs_path = '~/Music'
-    
-    songs_path = songs_path.replace('~/','/home/anakin/')
+
+    # from ~/ to /home/username
+    songs_path = songs_path.replace('~/', config.get('SONGS_PATH'))
 
     is_playlist = check_if_playlist(url)
     is_youtube = check_is_youtube_platform(url)
@@ -53,5 +58,6 @@ if __name__ == "__main__":
         os.system(f'export SPOTIPY_CLIENT_ID=5b0c015af53d43ed8d5f4317c1f76e83 &&'
                   f' export SPOTIPY_CLIENT_SECRET=04d8fe2163ba46ef826cb05607ee265f &&'
                   f' spotify_dl -l {url} -o {songs_path}/spotify')
+
 # sudo vi /etc/profile.d/song_downloader_from_python.sh
 # source  /etc/profile.d/song_downloader_from_python.sh
