@@ -31,9 +31,11 @@ if __name__ == "__main__":
 
     change_directory = input(colored('Do you want to change the directory from "~/Music" [Y/n]: ', 'yellow')).lower()
     if change_directory == 'y':
-        songs_path = input(colored('New path: ', 'green'))
+        songs_path = str(input(colored('New path: ', 'green')))
     else:
         songs_path = '~/Music'
+    
+    songs_path = songs_path.replace('~/','/home/anakin/')
 
     is_playlist = check_if_playlist(url)
     is_youtube = check_is_youtube_platform(url)
