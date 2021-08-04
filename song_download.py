@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 from termcolor import colored
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 
 
 def check_is_youtube_platform(url):
@@ -29,7 +29,7 @@ def check_if_playlist(url):
 if __name__ == "__main__":
 
     # Load .env
-    config = dotenv_values('.env')
+    load_dotenv()
 
     url = input(colored('Link: ', "blue"))
 
@@ -37,10 +37,10 @@ if __name__ == "__main__":
     if change_directory == 'y':
         songs_path = str(input(colored('New path: ', 'green')))
     else:
-        songs_path = '~/Music'
+        songs_path = str('~/Music')
 
     # from ~/ to /home/username
-    songs_path = songs_path.replace('~/', config.get('SONGS_PATH'))
+    songs_path = songs_path.replace('~/', os.getenv('SONG_PATH'))
 
     is_playlist = check_if_playlist(url)
     is_youtube = check_is_youtube_platform(url)
@@ -55,8 +55,8 @@ if __name__ == "__main__":
                 f'youtube-dl --extract-audio -o "{songs_path}/youtube/%(title)s.%(ext)s" --audio-format mp3 {url}')
     else:
 
-        os.system(f'export SPOTIPY_CLIENT_ID={config.get("SPOTIPY_CLIENT_ID")} &&'
-                  f' export SPOTIPY_CLIENT_SECRET={config.get("SPOTIPY_CLIENT_SECRET")} &&'
+        os.system(f'export SPOTIPY_CLIENT_ID={os.getenv("SPOTIPY_CLIENT_ID")} &&'
+                  f' export SPOTIPY_CLIENT_SECRET={os.getenv("SPOTIPY_CLIENT_SECRET")} &&'
                   f' spotify_dl -l {url} -o {songs_path}/spotify')
 
 # sudo vi /etc/profile.d/song_downloader_from_python.sh
