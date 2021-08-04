@@ -34,6 +34,7 @@ if __name__ == "__main__":
     url = input(colored('Link: ', "blue"))
 
     change_directory = input(colored('Do you want to change the directory from "~/Music" [Y/n]: ', 'yellow')).lower()
+
     if change_directory == 'y':
         songs_path = str(input(colored('New path: ', 'green')))
     else:
